@@ -51,4 +51,4 @@ __Symfony__
 
 # Some notes
 I decided to deviate a little from the requirements and optimize them. I have ruled out the possibility of duplicate sha1 values. Since this is a hash, it means it acts as an identifier. The probability of the same value for different strings, although very small, does exist. Therefore, I catch exception and handling the exception at the time of recording. Thus, there is no need to add the “collisions” array - one value is always returned. On top of that, I used the api platform and received standardized responses when making requests to create/get a resource.
-
+I spent about 4 - 5 hours on this. Including setting up the environment, writing the Readme, performing the task and testing

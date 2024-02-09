@@ -1,0 +1,38 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+function createEnvFile(): void
+{
+    $consoleOptions = getopt(
+        '',
+        [
+            'secret-path:',
+            'token:',
+            'base-uri:',
+            'env-path:'
+        ]
+    );
+    $secretsPath = $consoleOptions['secret-path'];
+    $token = $consoleOptions['token'];
+    $baseUri = $consoleOptions['base-uri'];
+    $envPath = $consoleOptions['env-path'];
+    $options = [
+        'http' => [
+            'method' => 'GET',
+            'header' => "X-Vault-Token: $token",
+        ]
+    ];
+    $context = stream_context_create($options);
+    $response = file_get_contents($baseUri . $secretsPath, false, $context);
+    $responseData = json_decode($response, true);
+    $envParams = $responseData['data']['data'] ?? [];
+    $envFile = fopen($envPath, 'w+');
+    foreach ($envParams as $param => $value) {
+        fwrite($envFile, "$param=\"$value\"\n");
+    }
+    fclose($envFile);
+}
+
+createEnvFile();

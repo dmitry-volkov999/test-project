@@ -1,0 +1,23 @@
+api_platform:
+    eager_loading:
+        enabled: false
+    title: 'Test project'
+    version: '1.0.0'
+    mapping:
+        paths:
+            - '%kernel.project_dir%/src/Entity'
+            - '%kernel.project_dir%/src/DTO'
+    patch_formats:
+        json: ['application/merge-patch+json']
+    messenger:
+        enabled: true
+    defaults:
+        pagination_client_enabled: true
+        pagination_client_items_per_page: true
+        pagination_items_per_page: 250
+    swagger:
+        api_keys:
+            apiKey:
+                name: Authorization
+                type: header
+        versions: [3]
